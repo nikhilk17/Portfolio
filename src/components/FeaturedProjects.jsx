@@ -115,37 +115,31 @@
 
 // export default FeaturedProjects;
 
-import gsap from 'gsap';
 import React, { useEffect, useRef, useState,useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Darth from "../assets/darth.png";
-import Thynkr from "../assets/thynkr.png";
-import Nocaptcha from "../assets/nocaptcha.png";
-import F2c from "../assets/F2c.png";
-import { useGSAP } from '@gsap/react';
 const projectData = [
   {
     id: 1,
     title: 'Thynkr',
-    image: Thynkr,
+    image: "https://i.postimg.cc/k5zqttcn/Screenshot-2025-04-01-at-5-34-16-PM.png",
     gradient: 'bg-gray-200'
   },
   {
     id: 2,
     title: 'Darth-Ai',
-    image: Darth,
+    image: "https://i.ibb.co/zWdjQ5P6/Screenshot-2025-04-01-at-12-51-26-PM.png",
     gradient: 'from-orange-300 via-purple-400 to-blue-500'
   },
   {
     id: 3,
     title: 'NoCaptcha',
-    image: Nocaptcha,
+    image: "https://i.ibb.co/Z5Swpx6/Screenshot-2025-04-01-at-12-56-16-PM.png",
     gradient: 'from-yellow-300 via-orange-200 to-yellow-400'
   },
   {
     id: 4,
     title: 'Farmer to Customer',
-    image: F2c,
+    image: "https://i.ibb.co/7J3ZLzks/Screenshot-2025-04-01-at-3-23-17-PM.png",
     gradient: 'bg-gray-200'
   }
 ];

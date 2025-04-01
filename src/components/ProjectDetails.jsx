@@ -637,11 +637,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import darth from "../assets/darth.png";
-import darthChat from "../assets/darthChat.png";
-import nocaptcha from "../assets/nocaptcha.png";
-import thynkr from "../assets/thynkr.png";
-import f2c from "../assets/f2c.png";
+
 // Project data - In a real application, this would typically be fetched from an API
 const projectsData = [
   {
@@ -677,7 +673,7 @@ const projectsData = [
       text: "Start Your AI Mock Interview",
       link: "https://www.codenetra.com/"
     },
-    image:thynkr ,
+    image:"https://i.postimg.cc/k5zqttcn/Screenshot-2025-04-01-at-5-34-16-PM.png" ,
     visualImages: [
 
     ]
@@ -715,9 +711,8 @@ const projectsData = [
       text: "Let's Build Something Amazing!",
       link: "https://darthai.tech/"
     },
-    image: darth,
+    image: "https://i.ibb.co/zWdjQ5P6/Screenshot-2025-04-01-at-12-51-26-PM.png",
     visualImages: [
-      darthChat,
     ]
   },
   {
@@ -753,7 +748,7 @@ const projectsData = [
       text: "Enhance Your Security Today!",
       link: "https://www.nocaptcha.tech/"
     },
-    image: nocaptcha,
+    image: "https://i.ibb.co/Z5Swpx6/Screenshot-2025-04-01-at-12-56-16-PM.png",
     visualImages: [
 
     ]
@@ -791,7 +786,7 @@ const projectsData = [
       text: "Support Farmers & Enjoy Fresh Produce!",
       link: "https://farmer2customer.vercel.app/"
     },
-    image: f2c,
+    image: "https://i.ibb.co/7J3ZLzks/Screenshot-2025-04-01-at-3-23-17-PM.png",
     visualImages: [
       
     ]
