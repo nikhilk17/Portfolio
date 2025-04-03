@@ -603,24 +603,30 @@ const Home = () => {
   useEffect(()=>{
     startLoader();
   },[]);
-  useGSAP(() => {
-    gsap.to(".counter", {
-      delay: 3.5,
-      opacity: 0,
-      duration: 0.5,
-      ease: "power2.inOut"
-    });
-    
-    gsap.to(".bar", {
-      delay: 3.5,
-      height: 0,
-      duration: 2,
-      stagger: {
-        amount: 0.5,
-      },
-      ease: "power2.inOut",
-    });
-  }, []);
+  useEffect(() => {
+    // Only trigger animations when counter reaches 100
+    if (counter === 100) {
+      // Add a small delay to ensure the counter displays 100 briefly
+      const triggerAnimations = setTimeout(() => {
+        gsap.to(".counter", {
+          opacity: 0,
+          duration: 0.5,
+          ease: "power4.inOut"
+        });
+        
+        gsap.to(".bar", {
+          height: 0,
+          duration: 2.5,
+          stagger: {
+            amount: 0.4,
+          },
+          ease: "power4.inOut",
+        });
+      }, 300); // 300ms delay before starting the exit animations
+      
+      return () => clearTimeout(triggerAnimations);
+    }
+  }, [counter]);
   useGSAP(() => {
     const lines = [
       { top: "390px", left: "-120px" },
