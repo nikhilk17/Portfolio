@@ -468,9 +468,10 @@ const LEDMatrix = () => {
   useEffect(() => {
     const handleResize = () => {
       const newWidth = window.innerWidth;
+      
       setDimensions({ 
         width: newWidth, 
-        height: 220 
+        height: 200 
       });
     };
     
@@ -578,6 +579,48 @@ const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isHovered, setIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [counter,setCounter]=useState(0);
+  function startLoader() {
+    const updateCounter = () => {
+      setCounter(prevCount => {
+        const nextCount = prevCount + Math.floor(Math.random() * 10) + 1;
+        
+        // If we've reached or exceeded 100, return exactly 100
+        if (nextCount >= 100) {
+          return 100;
+        }
+        
+        // Otherwise schedule the next update and return the new count
+        const delay = Math.floor(Math.random() * 800) + 50;
+        setTimeout(updateCounter, delay);
+        return nextCount;
+      });
+    };
+    
+    // Start the counter
+    updateCounter();
+  }
+  useEffect(()=>{
+    startLoader();
+  },[]);
+  useGSAP(() => {
+    gsap.to(".counter", {
+      delay: 2,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power2.inOut"
+    });
+    
+    gsap.to(".bar", {
+      delay: 2,
+      height: 0,
+      duration: 2,
+      stagger: {
+        amount: 0.5,
+      },
+      ease: "power2.inOut",
+    });
+  }, []);
   useGSAP(() => {
     const lines = [
       { top: "390px", left: "-120px" },
@@ -599,7 +642,7 @@ const Home = () => {
         {
           top: `${parseInt(line.top) + 624}px`, // End position
           left: `${parseInt(line.left) + 1357}px`,
-          duration: 4 , // Slight variation in speed for natural effect
+          duration: 8 , // Slight variation in speed for natural effect
           ease: "easeInOut",
           repeat: -1,
           delay: index * 0.5, 
@@ -654,8 +697,24 @@ const Home = () => {
   
   return (
 
-    <div className='h-screen p-1 '>
-
+    <div className='p-1 h-[100vh] overflow-hidden'>
+    <div className=''>
+    <h1 className='fixed w-[100vw] counter h-[100vh] flex justify-end font-bold items-end p-5 sm:p-20 z-50 text-[#BCBBC2] leading-none text-[20vh] md:text-[30vh]'>
+      {counter}
+    </h1>
+    <div className='overlay  fixed w-[100vw] h-[100vh] z-40 flex'>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+    </div>
+    </div>
 
     <div className="h-full rounded-3xl bg-white font-serif relative overflow-hidden flex flex-col">
 
@@ -769,7 +828,7 @@ const Home = () => {
       
       {/* Main Content */}
       <main className="relative z-10 flex flex-col items-center justify-center text-center px-4 py-12 md:py-16 flex-grow">
-        <h1 className="text-4xl md:text-4xl lg:text-5xl font-thin text-gray-900 leading-none max-w-5xl">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-thin text-gray-900 leading-none max-w-xs sm:max-w-5xl">
         Hello, I’m Nikhil. Delighted to have you explore my portfolio.I Build seamless websites for an <span className="text-gray-400">immersive and engaging user experience.</span>
         </h1>
         

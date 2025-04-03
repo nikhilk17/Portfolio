@@ -635,6 +635,7 @@
 // export default ProjectDetails;
 
 
+import { Link2} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 
@@ -755,6 +756,42 @@ const projectsData = [
   },
   {
     id: "4",
+    title: "DarkVerse - An Immersive Digital Experience",
+    date: 2024,
+    category: "Web & UI/UX",
+    subcategory: "Immersive Design & Animations",
+    background: "DarkVerse is an award-winning website that leverages immersive animations and seamless transitions to enhance user experience. It secured 1st place among 50+ teams in a design challenge.",
+    coreProblem: "Traditional websites often lack engaging animations and smooth transitions, leading to a static and unappealing user experience. Additionally, poor performance optimization can result in slow load times.",
+    approach: {
+      steps: [
+        "Developed a fully immersive experience using React.js and GSAP animations.",
+        "Optimized performance with code-splitting and WebP image formats to reduce load time.",
+        "Designed and validated user interactions using Figma prototypes before implementation.",
+        "Ensured smooth transitions and animations to improve usability and engagement."
+      ]
+    },
+    keyFeatures: [
+      "GSAP-powered animations for fluid interactions",
+      "Optimized media assets for faster load times",
+      "Seamless page transitions for a dynamic experience",
+      "User-validated designs with Figma prototypes"
+    ],
+    impact: {
+      metrics: [
+        "35% improved usability",
+        "20% higher task completion rates",
+        "15% faster load times"
+      ]
+    },
+    cta: {
+      text: "Visit DarkVerse",
+      link: "https://dark-verse-six.vercel.app/"
+    },
+    image: "https://i.postimg.cc/7YZWy4Dg/Screenshot-2025-04-03-at-6-53-43-PM.png",
+    visualImages: []
+  },
+  {
+    id: "5",
     title: "Farmer To Customer - Bridging the Gap",
     date: "2025",
     category: "AgriTech",
@@ -790,6 +827,45 @@ const projectsData = [
     visualImages: [
       
     ]
+  },
+  {
+    id: "6",
+    title: "Saviskar - The Ultimate Fest",
+    date: 2025,
+    category: "Event Management & Tech Festival",
+    subcategory: "Web Development, UI/UX, and Animations",
+    background: "Saviskar is a dynamic event management platform designed for tech festivals. It streamlines event registrations, schedules, and real-time updates while integrating immersive animations for an engaging user experience.",
+    coreProblem: "Managing a large-scale tech fest involves handling registrations, schedules, and announcements efficiently. Traditional methods often lead to delays, miscommunication, and poor user experience.",
+    approach: {
+      steps: [
+        "Developed a feature-rich platform using React.js and Tailwind CSS for a sleek UI.",
+        "Integrated real-time updates and notifications for event schedules and changes.",
+        "Implemented a user-friendly registration system with automated confirmation emails.",
+        "Utilized Framer Motion & GSAP for immersive animations and interactive UI elements.",
+        "Designed a dedicated hackathon section to manage registrations, teams, and submissions."
+      ]
+    },
+    keyFeatures: [
+      "Real-time event updates and notifications",
+      "Seamless participant registration system",
+      "Dedicated hackathon management module",
+      "Visually engaging UI with Framer Motion & GSAP animations",
+      "Fully responsive design for all devices"
+    ],
+    impact: {
+      metrics: [
+        "40% increase in event registrations due to seamless UX",
+        "30% faster event updates and announcements",
+        "20% higher engagement in hackathons due to interactive features",
+        "Enhanced participant experience through smooth animations and transitions"
+      ]
+    },
+    cta: {
+      text: "Explore Saviskar",
+      link: "https://saviskar.vercel.app/"
+    },
+    image: "https://i.postimg.cc/KjM41whQ/Screenshot-2025-04-03-at-7-00-08-PM.png",
+    visualImages: []
   }
 ];
 
@@ -838,14 +914,14 @@ const ProjectDetails = () => {
     <div className="bg-white text-black min-h-screen">
       {/* Header with fixed navigation */}
       <nav className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-8xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
           <Link to="/" className="text-black hover:text-gray-600 transition">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
           </Link>
           
-          <div className="flex space-x-3 sm:space-x-6">
+          <div className="flex space-x-4 pl-1 text-sm sm:text-md sm:space-x-6">
             <a 
               href="#overview"
               className="text-gray-500 hover:text-black transition"
@@ -881,7 +957,7 @@ const ProjectDetails = () => {
       {/* Main Content */}
       <div className="max-w-8xl mx-auto px-6 py-8 md:px-12 lg:px-16">
         {/* Project Meta */}
-        <div className="max-w-3xl mx-auto text-center mb-12">
+        <div className="max-w-3xl mx-auto text-center mb-8">
           <div className="flex justify-center items-center space-x-2 mb-4">
             <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
               {project.category}
@@ -894,8 +970,15 @@ const ProjectDetails = () => {
             </span>
           </div>
           <h1 className="text-5xl font-bold mb-6">{project.title}</h1>
+          <div className="flex justify-center items-center space-x-2">
+          <div className="bg-gray-100 flex gap-3 rounded-full py-1 px-3">
+          <Link2/>
+         <a href={project.cta.link} target="_blank">
+           <p className="text-gray-900">Visit Website</p>
+         </a>
+          </div>
         </div>
-
+        </div>
         {/* Hero Image */}
         <div className="max-w-6xl mx-auto mb-16 rounded-3xl relative group">
           <img 
@@ -946,7 +1029,7 @@ const ProjectDetails = () => {
                 Our goal was to create an innovative solution to address these challenges.
               </p>
               
-              <div className="bg-gray-50 p-8 rounded-xl">
+              <div className="bg-gray-100 p-8 rounded-xl">
                 <h3 className="text-xl font-semibold mb-6">Steps Taken</h3>
                 <div className="space-y-6">
                   {project.approach.steps.map((step, index) => (

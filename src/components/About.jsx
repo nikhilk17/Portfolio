@@ -12,7 +12,7 @@ const About = () => {
     })
   })
   return (
-    <div className='p-1'>
+    <div className='p-1 overflow-hidden'>
 
     <div className="rounded-3xl bg-white">
       {/* Main content container */}
@@ -30,16 +30,16 @@ const About = () => {
 
         {/* Paragraphs */}
         <div className="max-w-full mt-10 sm:space-y-10 text-lg mb-8">
-          <p className="mb-4 text-gray-600">
-            I'm a Full-Stack Developer & UX Enthusiast passionate about crafting seamless, interactive, and engaging web experiences. Specializing in MERN Stack and Spring Boot, I build scalable applications with smooth animations and intuitive user interfaces.
-          </p>
-          <p className="mb-4 text-gray-600">
-            I bring websites to life through GSAP, Framer Motion, and Tailwind CSS, creating immersive animations, fluid transitions, and micro-interactions that enhance user engagement. I believe a well-animated interface isn't just visually appealing—it improves usability and makes digital experiences more intuitive.
-          </p>
-          <p className="text-gray-600">
-            From high-performance backends to visually captivating frontends, I ensure every project balances efficiency with elegance. Let's collaborate to build something fast, interactive, and beautifully animated!
-          </p>
-        </div>
+  <p className="mb-4 text-gray-600">
+    I'm a <span className="text-blue-500 font-semibold">Full-Stack Developer & UX Enthusiast</span> passionate about crafting seamless, interactive, and engaging web experiences. Specializing in <span className="text-blue-500 font-semibold">MERN Stack and Spring Boot</span>, I build scalable applications with smooth animations and intuitive user interfaces.
+  </p>
+  <p className="mb-4 text-gray-600">
+    I bring websites to life through <span className="text-blue-500 font-semibold">GSAP, Framer Motion, and Tailwind CSS</span>, creating immersive animations, fluid transitions, and micro-interactions that enhance user engagement. I believe a well-animated interface isn't just visually appealing—it improves usability and makes digital experiences more intuitive.
+  </p>
+  <p className="text-gray-600">
+    From <span className="text-blue-500 font-semibold">high-performance backends</span> to <span className="text-blue-500 font-semibold">visually captivating frontends</span>, I ensure every project balances <span className="text-blue-500 font-semibold">efficiency with elegance</span>. Let's collaborate to build something <span className="text-blue-500 font-semibold">fast, interactive, and beautifully animated</span>!
+  </p>
+</div>
 
         {/* Skills section */}
         <div className="mb-8">

@@ -6,7 +6,7 @@ import Footer from '../../components/Footer'
 
 const HomePage = () => {
   return (
-    <div className='bg-black'>
+    <div className='bg-black overflow-hidden'>
       <Home/>
       <FeaturedProjects/>
       <About/>

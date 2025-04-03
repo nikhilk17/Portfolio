@@ -115,8 +115,12 @@
 
 // export default FeaturedProjects;
 
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ArrowRight } from 'lucide-react';
 import React, { useEffect, useRef, useState,useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+gsap.registerPlugin(useGSAP);
 const projectData = [
   {
     id: 1,
@@ -138,66 +142,110 @@ const projectData = [
   },
   {
     id: 4,
+    title: 'DarkVerse',
+    image: "https://i.postimg.cc/7YZWy4Dg/Screenshot-2025-04-03-at-6-53-43-PM.png",
+    gradient: 'bg-gray-200'
+  },
+  {
+    id: 5,
     title: 'Farmer to Customer',
     image: "https://i.ibb.co/7J3ZLzks/Screenshot-2025-04-01-at-3-23-17-PM.png",
     gradient: 'bg-gray-200'
-  }
+  },
+  {
+    id: 6,
+    title: 'Saviskar',
+    image: "https://i.postimg.cc/KjM41whQ/Screenshot-2025-04-03-at-7-00-08-PM.png",
+    gradient: 'bg-gray-200'
+  },
 ];
+
 
 const ProjectCard = ({ project }) => {
   const cardRef = useRef(null);
-  const containerRef = useRef(null);
+  const exploreRef = useRef(null);
   const navigate = useNavigate();
-  // useGSAP(() => {
-  //   const container = containerRef.current;
-  //   const card = cardRef.current;
 
-  //   gsap.set(container, { perspective: 1000 });
-  //   gsap.set(container, { transformStyle: "preserve-3d" });
-  //   gsap.set(container, { transformOrigin: "center center" });
+  useGSAP(() => {
+    const card = cardRef.current;
+    const explore = exploreRef.current;
 
-  //   card.addEventListener("mouseenter", () => {
-  //           gsap.to(card, {
-  //             rotationX: 4, 
-  //             scale: 0.94,   
-  //             duration: 0.5,
-  //             ease: "easeIn"
-  //           });
-  //         });
-      
-  //         card.addEventListener("mouseleave", () => {
-  //           gsap.to(card, {
-  //             rotationX: 0,
-  //             scaleY: 1,
-  //             scaleX: 1,
-  //             duration: 0.2,
-  //             ease: "easeOut",
-  //           });
-  //         });
-      
-  //         return () => {
-  //           card.removeEventListener("mouseenter", () => {});
-  //           card.removeEventListener("mouseleave", () => {});
-  //         };
-  //       }, []);
+    if (!card || !explore) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(explore, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.6,
+        ease: "power1.inOut",
+        overwrite: "auto",
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(explore, {
+        scale: 0,
+        opacity: 0,
+        overwrite: "auto",
+      });
+    };
+
+    const handleMouseMove = (e) => {
+      const rect = card.getBoundingClientRect();
+      gsap.to(explore, {
+        x: e.clientX - rect.left - 40, // Centering the effect
+        y: e.clientY - rect.top ,
+        overwrite: "auto",
+      });
+    };
+
+    card.addEventListener("mouseenter", handleMouseEnter);
+    card.addEventListener("mouseleave", handleMouseLeave);
+    card.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      card.removeEventListener("mouseenter", handleMouseEnter);
+      card.removeEventListener("mouseleave", handleMouseLeave);
+      card.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   return (
-    <div onClick={()=>navigate(`projects/${project.id}`)} ref={containerRef} className="relative perspective preserve-3d hover:scale-[0.95] transition-all duration-500">
-      <div ref={cardRef} className=" border-2 p-0.5 sm:p-1.5 hover:my-rotate-x transition-all duration-500 cursor-pointer rounded-2xl border-[#efeeee]">
-      
-      <img 
-        src={project.image} 
-        alt={project.title} 
-        className="w-full h-[380px] sm:h-[420px] rounded-xl object-cover"
-      />
-      <div className="absolute bottom-0 left-0 right-0 pl-8 pb-9 pr-20">
-        <h3 className="text-blue-300 text-2xl font-light transition-all duration-500 leading-tight">{project.title}</h3>
+    <div
+      onClick={() => navigate(`projects/${project.id}`)}
+      className="relative perspective preserve-3d hover:scale-[0.95] transition-all duration-500"
+    >
+      <div
+        ref={cardRef}
+        className="relative cursor-none border-2 p-0.5 sm:p-1.5 hover:my-rotate-x transition-all duration-500 rounded-2xl border-[#efeeee] overflow-hidden"
+      >
+        {/* Floating Explore Effect */}
+        <div
+          ref={exploreRef}
+          className="absolute flex gap-2 top-0 left-0 bg-gray-200 px-3 pl-4 py-3 rounded-full opacity-0 scale-0 pointer-events-none"
+        >
+          Explore Now
+          <ArrowRight/>
+        </div>
+
+        {/* Project Image */}
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-[380px] sm:h-[420px] rounded-xl object-cover"
+        />
+
+        {/* Title */}
+        <div className="absolute bottom-0 left-0 right-0 pl-8 pb-9 pr-20">
+          <h3 className="text-blue-300 text-2xl font-light transition-all duration-500 leading-tight">
+            {project.title}
+          </h3>
+        </div>
       </div>
-      </div>
-    
     </div>
   );
 };
+
 const LEDMatrix = () => {
   // Your existing LED Matrix code here
   // ... (keeping all the original implementation)
@@ -219,7 +267,7 @@ const LEDMatrix = () => {
       const newWidth = window.innerWidth;
       setDimensions({ 
         width: newWidth, 
-        height: 220 
+        height: 150 
       });
     };
     
@@ -325,7 +373,7 @@ const LEDMatrix = () => {
 
 const FeaturedProjects = () => {
   return (
-    <div className='p-1'>
+    <div className='p-1 w-screen overflow-hidden'>
 
     <div className="w-full bg-white rounded-t-3xl font-serif px-4 md:px-6 lg:px-10 py-6">
       <div className="flex items-center justify-between mb-4">
@@ -340,9 +388,9 @@ const FeaturedProjects = () => {
       </div>
 
     </div>
-    <div className='relative bg-white rounded-b-3xl  bottom-0 your-class-name w-full h-[150px]'>
+    <div className='relative bg-white rounded-b-3xl  bottom-0 w-full h-[150px]'>
         <LEDMatrix/>
-        </div>
+      </div>
   </div>
   );
 };

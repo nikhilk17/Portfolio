@@ -3,7 +3,7 @@ import React from 'react'
 const Footer = () => {
 return (
 
-    <div className='p-1'>
+    <div className='p-1 overflow-hidden'>
 
 <div className="relative rounded-3xl h-screen w-full bg-cover bg-center bg-no-repeat" 
     style={{ backgroundImage: `url('https://i.ibb.co/0jHj4Xsk/Screenshot-2025-03-31-at-4-29-51-PM.png')` }}
