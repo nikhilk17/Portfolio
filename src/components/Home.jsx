@@ -591,7 +591,7 @@ const Home = () => {
         }
         
         // Otherwise schedule the next update and return the new count
-        const delay = Math.floor(Math.random() * 800) + 50;
+        const delay = Math.floor(Math.random() * 200) + 50;
         setTimeout(updateCounter, delay);
         return nextCount;
       });
