@@ -603,28 +603,46 @@ const Home = () => {
   useEffect(()=>{
     startLoader();
   },[]);
+
   useEffect(() => {
-    // Only trigger animations when counter reaches 100
     if (counter === 100) {
-      // Add a small delay to ensure the counter displays 100 briefly
-      const triggerAnimations = setTimeout(() => {
-        gsap.to(".counter", {
-          opacity: 0,
-          duration: 0.5,
-          ease: "power4.inOut"
-        });
-        
-        gsap.to(".bar", {
-          height: 0,
-          duration: 2.5,
-          stagger: {
-            amount: 0.4,
-          },
-          ease: "power4.inOut",
-        });
-      }, 300); // 300ms delay before starting the exit animations
-      
-      return () => clearTimeout(triggerAnimations);
+      console.log("Starting animation...");
+  
+      // Kill previous animations to prevent conflicts
+      gsap.killTweensOf([".counter", ".bar", ".overlay"]);
+  
+      // GSAP Timeline
+      const tl = gsap.timeline();
+  
+      tl.to(".counter", {
+        opacity: 0,
+        duration: 0.5,
+        ease: "power4.inOut",
+ // Delay only for the first animation
+      }, 'ani1');
+  
+      tl.to(".bar", {
+        height: 0,
+        duration: 2,
+        stagger: { amount: 0.5 },
+        ease: "power4.inOut",
+      }, 'ani1');
+  
+      tl.to(".counter", {
+        y: "-100%",
+        duration: 1, // Add duration to make it animate smoothly
+        ease: "power4.inOut",
+      });
+  
+      tl.to(".overlay", {
+        y: "-100%",
+        duration: 1,
+        ease: "power4.inOut",
+      });
+  
+      return () => {
+        tl.kill(); // Cleanup on unmount
+      };
     }
   }, [counter]);
   useGSAP(() => {
@@ -708,17 +726,18 @@ const Home = () => {
     <h1 className='fixed w-[100vw] counter h-[100vh] flex justify-end font-bold items-end p-5 sm:p-20 z-50 text-[#BCBBC2] leading-none text-[20vh] md:text-[30vh]'>
       {counter}
     </h1>
-    <div className='overlay  fixed w-[100vw] h-[100vh] z-40 flex'>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] h-[105vh]"></div>
+    <div className='overlay fixed w-[100vw] h-[100vh] z-40 flex'>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
+
     </div>
     </div>
 
