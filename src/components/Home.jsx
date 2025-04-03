@@ -605,14 +605,14 @@ const Home = () => {
   },[]);
   useGSAP(() => {
     gsap.to(".counter", {
-      delay: 2,
+      delay: 3.5,
       opacity: 0,
       duration: 0.5,
       ease: "power2.inOut"
     });
     
     gsap.to(".bar", {
-      delay: 2,
+      delay: 3.5,
       height: 0,
       duration: 2,
       stagger: {
