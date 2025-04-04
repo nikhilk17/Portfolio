@@ -103,9 +103,9 @@ const StackItem = ({ name, category, image }) => (
       </div>
     </div>
     
-    <div className="arrow transition-transform duration-700 group-hover:scale-90 group-hover:text-red-600 group-hover:rotate-45">
+    {/* <div className="arrow transition-transform duration-700 group-hover:scale-90 group-hover:text-red-600 group-hover:rotate-45">
       <MoveUpRight strokeWidth={1.25} size={20} />
-    </div>
+    </div> */}
   </div>
 </div>
 );

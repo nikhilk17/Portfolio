@@ -579,72 +579,40 @@ const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isHovered, setIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [counter,setCounter]=useState(0);
-  function startLoader() {
+  const [counter, setCounter] = useState(0);
+  const [showLoader, setShowLoader] = useState(() => {
+    return sessionStorage.getItem("loaderShown") !== "true";
+  });
+
+  const startLoader = () => {
     const updateCounter = () => {
-      setCounter(prevCount => {
-        const nextCount = prevCount + Math.floor(Math.random() * 10) + 1;
-        
-        // If we've reached or exceeded 100, return exactly 100
-        if (nextCount >= 100) {
-          return 100;
-        }
-        
-        // Otherwise schedule the next update and return the new count
-        const delay = Math.floor(Math.random() * 200) + 50;
-        setTimeout(updateCounter, delay);
-        return nextCount;
+      setCounter((prev) => {
+        const next = prev + Math.floor(Math.random() * 10) + 1;
+        if (next >= 100) return 100;
+        setTimeout(updateCounter, Math.floor(Math.random() * 200) + 50);
+        return next;
       });
     };
-    
-    // Start the counter
     updateCounter();
-  }
-  useEffect(()=>{
-    startLoader();
-  },[]);
+  };
 
   useEffect(() => {
-    if (counter === 100) {
-      console.log("Starting animation...");
-  
-      // Kill previous animations to prevent conflicts
-      gsap.killTweensOf([".counter", ".bar", ".overlay"]);
-  
-      // GSAP Timeline
+    if (showLoader) startLoader();
+    else setCounter(100);
+  }, []);
+
+  useEffect(() => {
+    if (counter === 100 && showLoader) {
+      sessionStorage.setItem("loaderShown", "true");
       const tl = gsap.timeline();
-  
-      tl.to(".counter", {
-        opacity: 0,
-        duration: 0.5,
-        ease: "power4.inOut",
- // Delay only for the first animation
-      }, 'ani1');
-  
-      tl.to(".bar", {
-        height: 0,
-        duration: 2,
-        stagger: { amount: 0.5 },
-        ease: "power4.inOut",
-      }, 'ani1');
-  
-      tl.to(".counter", {
-        y: "-100%",
-        duration: 1, // Add duration to make it animate smoothly
-        ease: "power4.inOut",
-      });
-  
-      tl.to(".overlay", {
-        y: "-100%",
-        duration: 1,
-        ease: "power4.inOut",
-      });
-  
-      return () => {
-        tl.kill(); // Cleanup on unmount
-      };
+      tl.to(".counter", { opacity: 0, duration: 0.5, ease: "power4.inOut" }, 'ani1')
+        .to(".bar", { height: 0, duration: 2, stagger: { amount: 0.5 }, ease: "power4.inOut" }, 'ani1')
+        .to(".counter", { y: "-100%", duration: 1, ease: "power4.inOut" })
+        .to(".overlay", { y: "-100%", duration: 1, ease: "power4.inOut" });
+
+      return () => tl.kill();
     }
-  }, [counter]);
+  }, [counter, showLoader]);
   useGSAP(() => {
     const lines = [
       { top: "390px", left: "-120px" },
@@ -722,24 +690,18 @@ const Home = () => {
   return (
 
     <div className='p-1 h-[100vh] overflow-hidden'>
-    <div className=''>
-    <h1 className='fixed w-[100vw] counter h-[100vh] flex justify-end font-bold items-end p-5 sm:p-20 z-50 text-[#BCBBC2] leading-none text-[20vh] md:text-[30vh]'>
-      {counter}
-    </h1>
-    <div className='overlay fixed w-[100vw] h-[100vh] z-40 flex'>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-      <div className="bar bg-black w-[10vw] z-40 h-[105vh]"></div>
-
-    </div>
-    </div>
+          {showLoader && (
+        <>
+          <h1 className='fixed w-[100vw] counter h-[100vh] flex justify-end font-bold items-end p-5 sm:p-20 z-50 text-[#BCBBC2] leading-none text-[20vh] md:text-[30vh]'>
+            {counter}
+          </h1>
+          <div className='overlay fixed w-[100vw] h-[100vh] z-40 flex'>
+            {Array.from({ length: 10 }).map((_, idx) => (
+              <div key={idx} className="bar bg-black w-[10vw] z-40 h-[105vh]" />
+            ))}
+          </div>
+        </>
+      )}
 
     <div className="h-full rounded-3xl bg-white font-serif relative overflow-hidden flex flex-col">
 
@@ -853,7 +815,7 @@ const Home = () => {
       
       {/* Main Content */}
       <main className="relative z-10 flex flex-col items-center justify-center text-center px-4 py-12 md:py-16 flex-grow">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-thin text-gray-900 leading-none max-w-xs sm:max-w-5xl">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-thin text-gray-900 leading-none max-w-5xl">
         Hello, I’m Nikhil. Delighted to have you explore my portfolio.I Build seamless websites for an <span className="text-gray-400">immersive and engaging user experience.</span>
         </h1>
         
