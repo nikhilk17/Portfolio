@@ -444,136 +444,230 @@
 // export default Home;
 
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import AnimatedDiagonalLines from './AnimatedDiagonalLines';
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 // LED Matrix Animation Component
-const LEDMatrix = () => {
-  // Your existing LED Matrix code here
-  // ... (keeping all the original implementation)
+// const LEDMatrix = () => {
+//   // Your existing LED Matrix code here
+//   // ... (keeping all the original implementation)
   
-  const width = window.innerWidth;
-  const height = 200; 
-  const matrixSize = 5;
-  const gap = 2;
+//   const width = window.innerWidth;
+//   const height = 200; 
+//   const matrixSize = 5;
+//   const gap = 2;
   
-  const columns = Math.floor(width / (matrixSize + gap));
-  const rows = Math.floor(height / (matrixSize + gap));
+//   const columns = Math.floor(width / (matrixSize + gap));
+//   const rows = Math.floor(height / (matrixSize + gap));
   
-  const [matrix, setMatrix] = useState([]);
-  const [dimensions, setDimensions] = useState({ width, height });
+//   const [matrix, setMatrix] = useState([]);
+//   const [dimensions, setDimensions] = useState({ width, height });
   
-  // Handle window resize
-  useEffect(() => {
-    const handleResize = () => {
-      const newWidth = window.innerWidth;
+//   // Handle window resize
+//   useEffect(() => {
+//     const handleResize = () => {
+//       const newWidth = window.innerWidth;
       
-      setDimensions({ 
-        width: newWidth, 
-        height: 200 
-      });
-    };
+//       setDimensions({ 
+//         width: newWidth, 
+//         height: 200 
+//       });
+//     };
     
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+//     window.addEventListener('resize', handleResize);
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
   
-  // Initialize matrix with some cells already glowing
-  useEffect(() => {
-    const newMatrix = [];
-    for (let i = 0; i < rows; i++) {
-      const row = [];
-      for (let j = 0; j < columns; j++) {
-        const randomStart = Math.random() < 0.01;
-        row.push({
-          id: `${i}-${j}`,
-          glowing: randomStart,
-          intensity: randomStart ? Math.random() : 0,
-        });
-      }
-      newMatrix.push(row);
-    }
-    setMatrix(newMatrix);
-  }, [rows, columns, dimensions]);
+//   // Initialize matrix with some cells already glowing
+//   useEffect(() => {
+//     const newMatrix = [];
+//     for (let i = 0; i < rows; i++) {
+//       const row = [];
+//       for (let j = 0; j < columns; j++) {
+//         const randomStart = Math.random() < 0.01;
+//         row.push({
+//           id: `${i}-${j}`,
+//           glowing: randomStart,
+//           intensity: randomStart ? Math.random() : 0,
+//         });
+//       }
+//       newMatrix.push(row);
+//     }
+//     setMatrix(newMatrix);
+//   }, [rows, columns, dimensions]);
   
-  // Update random cells
-  const updateRandomCells = useCallback(() => {
-    setMatrix((prevMatrix) => {
-      const newMatrix = JSON.parse(JSON.stringify(prevMatrix));
+//   // Update random cells
+//   const updateRandomCells = useCallback(() => {
+//     setMatrix((prevMatrix) => {
+//       const newMatrix = JSON.parse(JSON.stringify(prevMatrix));
       
-      // Fade existing glowing cells
-      newMatrix.forEach((row) => {
-        row.forEach((cell) => {
-          if (cell.glowing) {
-            cell.intensity -= 0.1;
-            if (cell.intensity <= 0) {
-              cell.glowing = false;
-              cell.intensity = 0;
-            }
-          }
-        });
-      });
+//       // Fade existing glowing cells
+//       newMatrix.forEach((row) => {
+//         row.forEach((cell) => {
+//           if (cell.glowing) {
+//             cell.intensity -= 0.1;
+//             if (cell.intensity <= 0) {
+//               cell.glowing = false;
+//               cell.intensity = 0;
+//             }
+//           }
+//         });
+//       });
       
-      // Add more new glowing cells to increase visibility
-      const numNewCells = 10;
-      for (let i = 0; i < numNewCells; i++) {
-        const row = Math.floor(Math.random() * rows);
-        const col = Math.floor(Math.random() * columns);
+//       // Add more new glowing cells to increase visibility
+//       const numNewCells = 10;
+//       for (let i = 0; i < numNewCells; i++) {
+//         const row = Math.floor(Math.random() * rows);
+//         const col = Math.floor(Math.random() * columns);
         
-        if (newMatrix[row] && newMatrix[row][col]) {
-          newMatrix[row][col].glowing = true;
-          newMatrix[row][col].intensity = 1.0;
-        }
-      }
+//         if (newMatrix[row] && newMatrix[row][col]) {
+//           newMatrix[row][col].glowing = true;
+//           newMatrix[row][col].intensity = 1.0;
+//         }
+//       }
       
-      return newMatrix;
-    });
-  }, [rows, columns]);
+//       return newMatrix;
+//     });
+//   }, [rows, columns]);
   
-  // Animation loop
-  useEffect(() => {
-    if (matrix.length === 0) return;
-    const interval = setInterval(updateRandomCells, 100);
-    return () => clearInterval(interval);
-  }, [matrix, updateRandomCells]);
+//   // Animation loop
+//   useEffect(() => {
+//     if (matrix.length === 0) return;
+//     const interval = setInterval(updateRandomCells, 100);
+//     return () => clearInterval(interval);
+//   }, [matrix, updateRandomCells]);
   
-  return (
-    <div className="w-full z-0">
-      <div
-        className="relative"
-        style={{
-          width: '100%',
-          height: `${dimensions.height}px`,
-          margin: '0 auto',
-        }}
-      >
-        <div
-          className="grid absolute bottom-0 left-0 w-full"
-          style={{
-            gridTemplateColumns: `repeat(${columns}, ${matrixSize}px)`,
-            gap: `${gap}px`,
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          {matrix.flat().map((cell) => (
-            <div
-              key={cell.id}
-              className="transition-all duration-200 bg-[#cfcece] ease-in-out"
-              style={{
-                width: `${matrixSize}px`,
-                height: `${matrixSize}px`,
-                backgroundColor: cell.glowing ? `#FE4C22` : "#cfcece",
-                opacity: cell.glowing ? cell.intensity : 0.1,
-              }}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="w-full z-0">
+//       <div
+//         className="relative"
+//         style={{
+//           width: '100%',
+//           height: `${dimensions.height}px`,
+//           margin: '0 auto',
+//         }}
+//       >
+//         <div
+//           className="grid absolute bottom-0 left-0 w-full"
+//           style={{
+//             gridTemplateColumns: `repeat(${columns}, ${matrixSize}px)`,
+//             gap: `${gap}px`,
+//             width: '100%',
+//             height: '100%',
+//           }}
+//         >
+//           {matrix.flat().map((cell) => (
+//             <div
+//               key={cell.id}
+//               className="transition-all duration-200 bg-[#cfcece] ease-in-out"
+//               style={{
+//                 width: `${matrixSize}px`,
+//                 height: `${matrixSize}px`,
+//                 backgroundColor: cell.glowing ? `#FE4C22` : "#cfcece",
+//                 opacity: cell.glowing ? cell.intensity : 0.1,
+//               }}
+//             />
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+
+
+// const LEDMatrix = () => {
+//   const containerRef = useRef(null);
+//   const [glowingCells, setGlowingCells] = useState(new Set());
+//   const [dimensions, setDimensions] = useState({
+//     width: window.innerWidth,
+//     height: 150,
+//   });
+
+//   const matrixSize = 7;
+//   const gap = 2;
+//   const columns = Math.floor(dimensions.width / (matrixSize + gap));
+//   const rows = Math.floor(dimensions.height / (matrixSize + gap));
+
+//   // Handle resize
+//   useEffect(() => {
+//     const handleResize = () => {
+//       setDimensions({
+//         width: window.innerWidth,
+//         height: 150,
+//       });
+//     };
+//     window.addEventListener("resize", handleResize);
+//     return () => window.removeEventListener("resize", handleResize);
+//   }, []);
+
+//   // Animation loop
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setGlowingCells((prevSet) => {
+//         const newSet = new Set(prevSet);
+//         // Fade out some random existing glowing cells
+//         for (let id of prevSet) {
+//           if (Math.random() < 0.3) newSet.delete(id);
+//         }
+//         // Add a few new glowing cells
+//         for (let i = 0; i < 6; i++) {
+//           const r = Math.floor(Math.random() * rows);
+//           const c = Math.floor(Math.random() * columns);
+//           newSet.add(`${r}-${c}`);
+//         }
+//         return newSet;
+//       });
+//     }, 300);
+
+//     return () => clearInterval(interval);
+//   }, [columns, rows]);
+
+//   return (
+//     <div className="w-full z-0">
+//       <div
+//         ref={containerRef}
+//         className="relative"
+//         style={{
+//           width: '100%',
+//           height: `${dimensions.height}px`,
+//           margin: '0 auto',
+//         }}
+//       >
+//         <div
+//           className="grid absolute bottom-0 left-0 w-full"
+//           style={{
+//             gridTemplateColumns: `repeat(${columns}, ${matrixSize}px)`,
+//             gap: `${gap}px`,
+//             width: '100%',
+//             height: '100%',
+//           }}
+//         >
+//           {Array.from({ length: rows * columns }).map((_, index) => {
+//             const row = Math.floor(index / columns);
+//             const col = index % columns;
+//             const id = `${row}-${col}`;
+//             const isGlowing = glowingCells.has(id);
+//             return (
+//               <div
+//                 key={id}
+//                 className="transition-opacity duration-300"
+//                 style={{
+//                   width: `${matrixSize}px`,
+//                   height: `${matrixSize}px`,
+//                   backgroundColor: isGlowing ? "#FE4C22" : "#cfcece",
+//                   opacity: isGlowing ? 1 : 0.1,
+//                 }}
+//               />
+//             );
+//           })}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
 
 const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -589,7 +683,7 @@ const Home = () => {
       setCounter((prev) => {
         const next = prev + Math.floor(Math.random() * 10) + 1;
         if (next >= 100) return 100;
-        setTimeout(updateCounter, Math.floor(Math.random() * 200) + 50);
+        setTimeout(updateCounter, Math.floor(Math.random() * 300) + 50);
         return next;
       });
     };
@@ -827,9 +921,9 @@ const Home = () => {
             <div className={`absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-4/5 h-8 bg-orange-300 opacity-30 blur-md rounded-full transition-opacity ${isHovered ? 'opacity-50' : 'opacity-30'}`}></div>
           </button>
         </div>
-        <div className='absolute bottom-0 your-class-name w-full h-[220px]'>
+        {/* <div className='absolute bottom-0 your-class-name w-full h-[220px]'>
         <LEDMatrix/>
-        </div>
+        </div> */}
       </main>
 
       <div>

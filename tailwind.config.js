@@ -33,7 +33,7 @@ export default {
     function ({ addUtilities }) {
       addUtilities({
         ".my-rotate-x":{
-          transform: "rotateX(4deg)",
+          transform: "rotateX(6deg)",
         },
         ".preserve-3d":{
           transformStyle: "preserve-3d",

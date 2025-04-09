@@ -886,6 +886,13 @@ const ProjectDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [projectId]);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100); // Delay slightly
+  
+    return () => clearTimeout(timeout);
+  }, [projectId]);
 
   if (loading) {
     return (
@@ -974,7 +981,7 @@ const ProjectDetails = () => {
           <div className="bg-gray-100 flex gap-3 rounded-full py-1 px-3">
           <Link2/>
          <a href={project.cta.link} target="_blank">
-           <p className="text-gray-900">Visit Website</p>
+           <p className="text-gray-900 cursor-pointer">Visit Website</p>
          </a>
           </div>
         </div>
