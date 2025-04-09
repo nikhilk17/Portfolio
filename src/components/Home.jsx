@@ -674,8 +674,9 @@ const Home = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [counter, setCounter] = useState(0);
-  const [showLoader, setShowLoader] = useState(true);
-  
+  const [showLoader, setShowLoader] = useState(() => {
+    return sessionStorage.getItem("loaderShown") !== "true";
+  });
 
   const startLoader = () => {
     const updateCounter = () => {
@@ -785,7 +786,7 @@ const Home = () => {
     <div className='p-1 h-[100vh] overflow-hidden'>
           {showLoader && (
         <>
-          <h1 className='fixed w-[100vw] counter h-[100vh] flex justify-end font-bold items-end p-10 sm:p-20 z-50 text-[#BCBBC2] leading-none text-[15vh] md:text-[30vh]'>
+          <h1 className='fixed w-[100vw] counter h-[100vh] flex justify-end font-bold items-end p-10 sm:p-20 z-50 text-[#BCBBC2] leading-none text-[20vh] md:text-[30vh]'>
             {counter}
           </h1>
           <div className='overlay fixed w-[100vw] h-[100vh] z-40 flex'>
