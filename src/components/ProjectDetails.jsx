@@ -918,17 +918,17 @@ const ProjectDetails = () => {
   }
 
   return (
-    <div className="bg-white text-black min-h-screen">
+    <div className="bg-white w-screen text-black min-h-screen">
       {/* Header with fixed navigation */}
       <nav className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-8xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+        <div className="sm:max-w-8xl w-full mx-auto sm:px-6 py-4 flex justify-between items-center">
           <Link to="/" className="text-black hover:text-gray-600 transition">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
           </Link>
           
-          <div className="flex space-x-4 pl-1 text-sm sm:text-md sm:space-x-6">
+          <div className="flex space-x-3 pl-1 text-xs sm:text-base sm:space-x-6">
             <a 
               href="#overview"
               className="text-gray-500 hover:text-black transition"
@@ -1145,3 +1145,8 @@ const ProjectDetails = () => {
 };
 
 export default ProjectDetails;
+
+
+
+
+

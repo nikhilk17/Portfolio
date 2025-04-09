@@ -674,9 +674,8 @@ const Home = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [counter, setCounter] = useState(0);
-  const [showLoader, setShowLoader] = useState(() => {
-    return sessionStorage.getItem("loaderShown") !== "true";
-  });
+  const [showLoader, setShowLoader] = useState(true);
+  
 
   const startLoader = () => {
     const updateCounter = () => {
@@ -786,7 +785,7 @@ const Home = () => {
     <div className='p-1 h-[100vh] overflow-hidden'>
           {showLoader && (
         <>
-          <h1 className='fixed w-[100vw] counter h-[100vh] flex justify-end font-bold items-end p-5 sm:p-20 z-50 text-[#BCBBC2] leading-none text-[20vh] md:text-[30vh]'>
+          <h1 className='fixed w-[100vw] counter h-[100vh] flex justify-end font-bold items-end p-10 sm:p-20 z-50 text-[#BCBBC2] leading-none text-[15vh] md:text-[30vh]'>
             {counter}
           </h1>
           <div className='overlay fixed w-[100vw] h-[100vh] z-40 flex'>
@@ -855,7 +854,7 @@ const Home = () => {
         
       <nav className="hidden md:flex items-center space-x-6">
         <div className='items-center space-x-6 border-2 border-gray-300 rounded-xl px-4 py-2'>
-        <a href="#"  className="text-gray-600 hover:text-gray-900 transition-colors">Resume</a>
+        <a href="https://drive.google.com/file/d/13i5fhv1iHtCWk5IrB5lW98v7a7L2_47b/view?usp=sharing" target='_blank'  className="text-gray-600 hover:text-gray-900 transition-colors">Resume</a>
         <a href="https://www.linkedin.com/in/nikhil-goud-31519025b/" target="_blank" className="text-gray-600 hover:text-gray-900 transition-colors">LinkedIn</a>
         {/* <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Template Store</a> */}
         </div>
