@@ -1,36 +1,55 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/LandingPage/Home';
-import ProjectDetails from './components/ProjectDetails';
+import React, { useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { AnimatePresence } from 'framer-motion';
+import ProjectDetails from './components/ProjectDetails';
+import PageTransition from './components/PageTransition';
+import HomePage from './pages/Home';
+
+// This is the part that depends on router
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
+
+  return (
+    <>
+    {/* New page renders in the background */}
+    <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/projects/:projectId" element={<ProjectDetails />} />
+      </Routes>
+
+      {/* Transition overlay only renders if not the initial mount */}
+      <AnimatePresence mode="sync">
+        {!isInitialMount.current && <PageTransition key={location.pathname} />}
+      </AnimatePresence>
+  </>
+  );
+};
 
 const App = () => {
   gsap.registerPlugin(useGSAP);
   useEffect(() => {
-    // Initialize Lenis
     const lenis = new Lenis();
+    lenis.on('scroll', (e) => {});
 
-    // Listen for the scroll event and log the event data
-    lenis.on('scroll', (e) => {
-
-    });
-
-    // Use requestAnimationFrame to continuously update the scroll
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
 
     requestAnimationFrame(raf);
-  }, [])
+  }, []);
+
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/projects/:projectId" element={<ProjectDetails />} />
-      </Routes>
+      <AnimatedRoutes />
     </Router>
   );
 };

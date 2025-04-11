@@ -491,19 +491,19 @@ const ProjectCard = ({ project }) => {
   return (
     <div
       onClick={() => navigate(`projects/${project.id}`)}
-      className="relative my-rotate-x perspective preserve-3d hover:scale-[0.96]  transition-all duration-500"
+      className="relative hover:scale-[0.96]  transition-all duration-500"
     >
       <div
         ref={cardRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
-        className="relative border-2 cursor-none p-0.5 sm:p-1.5 transition-all duration-500 rounded-2xl border-[#efeeee] overflow-hidden"
+        className="border-2 cursor-none p-0.5 sm:p-1.5 transition-all duration-500 rounded-2xl border-[#efeeee] overflow-hidden"
       >
         {/* Floating Explore Effect */}
         <div
           ref={exploreRef}
-          className="fixed flex gap-2 top-0 left-0 bg-gray-200 px-3 pl-4 py-3 rounded-full opacity-0 scale-0 pointer-events-none"
+          className="fixed z-20 flex gap-2 top-0 left-0 bg-gray-200 px-3 pl-4 py-3 rounded-full opacity-0 scale-0 pointer-events-none"
         >
           Explore Now
           <ArrowRight />
@@ -517,7 +517,7 @@ const ProjectCard = ({ project }) => {
         />
 
         {/* Title */}
-        <div className="absolute bottom-0 left-0 right-0 pl-8 pb-9 pr-20">
+        <div className="absolute z-10 bottom-0 left-0 right-0 pl-8 pb-9 pr-20">
           <h3 className="text-blue-300 text-2xl font-light transition-all duration-500 leading-tight">
             {project.title}
           </h3>

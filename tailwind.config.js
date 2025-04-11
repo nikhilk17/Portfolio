@@ -33,11 +33,11 @@ export default {
     function ({ addUtilities }) {
       addUtilities({
         ".my-rotate-x":{
-          transform: "rotateX(6deg)",
+          transform: "rotateX(4deg)",
         },
         ".preserve-3d":{
           transformStyle: "preserve-3d",
-          transoformOrigin:"bottom"
+          transoformOrigin:"center"
         },
         ".perspective": {
           perspective: "1000px",

@@ -638,8 +638,17 @@
 import { Link2} from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-// Project data - In a real application, this would typically be fetched from an API
+const pageVariants = {
+  initial: { opacity: 0, y: 20 },
+  in: { opacity: 1, y: 0 },
+  out: { opacity: 0, y: -20 }
+};
+
+const pageTransition = {
+  duration: 0.4
+};
 const projectsData = [
   {
     id: "1",
@@ -918,7 +927,13 @@ const ProjectDetails = () => {
   }
 
   return (
-    <div className="bg-white w-screen text-black min-h-screen">
+    <motion.div
+    variants={pageVariants}
+      initial="initial"
+      animate="in"
+      exit="out"
+      transition={pageTransition}
+     className="bg-white w-screen text-black min-h-screen">
       {/* Header with fixed navigation */}
       <nav className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
         <div className="sm:max-w-8xl w-full mx-auto sm:px-6 py-4 flex justify-between items-center">
@@ -1140,7 +1155,7 @@ const ProjectDetails = () => {
           </Link>
         </div> */}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
