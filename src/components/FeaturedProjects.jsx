@@ -401,12 +401,159 @@
 
 
 
-import { useRef, useCallback } from 'react';
+// import { useRef, useCallback } from 'react';
+// import { ArrowRight } from 'lucide-react';
+// import { useNavigate } from 'react-router-dom';
+// import gsap from 'gsap';
+
+// // Project data
+// const projectData = [
+//   {
+//     id: 1,
+//     title: 'Thynkr',
+//     image: "https://i.postimg.cc/k5zqttcn/Screenshot-2025-04-01-at-5-34-16-PM.png",
+//     gradient: 'bg-gray-200'
+//   },
+//   {
+//     id: 2,
+//     title: 'Darth-Ai',
+//     image: "https://i.ibb.co/zWdjQ5P6/Screenshot-2025-04-01-at-12-51-26-PM.png",
+//     gradient: 'from-orange-300 via-purple-400 to-blue-500'
+//   },
+//   {
+//     id: 3,
+//     title: 'NoCaptcha',
+//     image: "https://i.ibb.co/Z5Swpx6/Screenshot-2025-04-01-at-12-56-16-PM.png",
+//     gradient: 'from-yellow-300 via-orange-200 to-yellow-400'
+//   },
+//   {
+//     id: 4,
+//     title: 'DarkVerse',
+//     image: "https://i.postimg.cc/7YZWy4Dg/Screenshot-2025-04-03-at-6-53-43-PM.png",
+//     gradient: 'bg-gray-200'
+//   },
+//   {
+//     id: 5,
+//     title: 'Farmer to Customer',
+//     image: "https://i.ibb.co/7J3ZLzks/Screenshot-2025-04-01-at-3-23-17-PM.png",
+//     gradient: 'bg-gray-200'
+//   },
+//   {
+//     id: 6,
+//     title: 'Saviskar',
+//     image: "https://i.postimg.cc/KjM41whQ/Screenshot-2025-04-03-at-7-00-08-PM.png",
+//     gradient: 'bg-gray-200'
+//   },
+// ];
+
+// const ProjectCard = ({ project }) => {
+//   const cardRef = useRef(null);
+//   const exploreRef = useRef(null);
+//   const navigate = useNavigate();
+
+//   const handleMouseEnter = useCallback(() => {
+//     if (!exploreRef.current) return;
+//     gsap.to(exploreRef.current, {
+//       scale: 1,
+//       opacity: 1,
+//       duration: 0.6,
+//       ease: "power1.inOut",
+//       overwrite: "auto",
+//     });
+//   }, []);
+
+//   const handleMouseLeave = useCallback(() => {
+//     if (!exploreRef.current) return;
+//     gsap.to(exploreRef.current, {
+//       scale: 0,
+//       opacity: 0,
+//       overwrite: "auto",
+//     });
+//   }, []);
+
+//   const handleMouseMove = useCallback((e) => {
+//     const card = cardRef.current;
+//     const explore = exploreRef.current;
+//     if (!card || !explore) return;
+
+//     const rect = card.getBoundingClientRect();
+//     const x = e.clientX - rect.left - 40;
+//     const y = e.clientY - rect.top;
+
+//     gsap.to(explore, {
+//       x,
+//       y,
+//       force3D: true,
+//       overwrite: "auto",
+//     });
+//   }, []);
+
+//   return (
+//     <div
+//       onClick={() => navigate(`projects/${project.id}`)}
+//       className="relative hover:scale-[0.96]  transition-all duration-500"
+//     >
+//       <div
+//         ref={cardRef}
+//         onMouseEnter={handleMouseEnter}
+//         onMouseLeave={handleMouseLeave}
+//         onMouseMove={handleMouseMove}
+//         className="border-2 cursor-none p-0.5 sm:p-1.5 transition-all duration-500 rounded-2xl border-[#efeeee] overflow-hidden"
+//       >
+//         {/* Floating Explore Effect */}
+//         <div
+//           ref={exploreRef}
+//           className="fixed z-50 flex gap-2 top-0 left-0 bg-gray-200 px-3 pl-4 py-3 rounded-full opacity-0 scale-0 pointer-events-none"
+//         >
+//           Explore Now
+//           <ArrowRight />
+//         </div>
+
+//         {/* Project Image */}
+//         <img
+//           src={project.image}
+//           alt={project.title}
+//           className="w-full h-[380px] sm:h-[420px] rounded-xl object-cover"
+//         />
+
+//         {/* Title */}
+//         <div className="absolute z-10 bottom-0 left-0 right-0 pl-8 pb-9 pr-20">
+//           <h3 className="text-blue-300 text-2xl font-light transition-all duration-500 leading-tight">
+//             {project.title}
+//           </h3>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// const FeaturedProjects = () => {
+//   return (
+//     <div className='p-1 w-screen overflow-hidden'>
+//       <div className="w-full bg-white rounded-3xl font-serif px-4 md:px-6 lg:px-10 py-6 pb-16">
+//         <div className="flex items-center justify-between mb-4">
+//           <h2 className="mt-5 text-4xl font-light text-gray-900">Featured Projects</h2>
+//         </div>
+
+//         {/* Grid layout for all screen sizes */}
+//         <div className="mt-12 grid grid-cols-1 md:grid-cols-1 xl:grid-cols-2 gap-7">
+//           {projectData.map((project) => (
+//             <ProjectCard key={project.id} project={project} />
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default FeaturedProjects;
+
+
+import React, { useRef, useCallback } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 
-// Project data
 const projectData = [
   {
     id: 1,
@@ -481,8 +628,8 @@ const ProjectCard = ({ project }) => {
     const y = e.clientY - rect.top;
 
     gsap.to(explore, {
-      x,
-      y,
+      x: x,
+      y: y,
       force3D: true,
       overwrite: "auto",
     });
@@ -491,19 +638,19 @@ const ProjectCard = ({ project }) => {
   return (
     <div
       onClick={() => navigate(`projects/${project.id}`)}
-      className="relative hover:scale-[0.96]  transition-all duration-500"
+      className="relative feature-section hover:scale-[0.96] transition-all duration-500"
     >
       <div
         ref={cardRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
-        className="border-2 cursor-none p-0.5 sm:p-1.5 transition-all duration-500 rounded-2xl border-[#efeeee] overflow-hidden"
+        className="relative cursor-none border-2 p-0.5 sm:p-1.5 transition-all duration-500 rounded-2xl border-[#efeeee] overflow-hidden"
       >
         {/* Floating Explore Effect */}
         <div
           ref={exploreRef}
-          className="fixed z-20 flex gap-2 top-0 left-0 bg-gray-200 px-3 pl-4 py-3 rounded-full opacity-0 scale-0 pointer-events-none"
+          className="fixed z-50 flex gap-2 top-0 left-0 bg-gray-200 px-3 pl-4 py-3 rounded-full opacity-0 scale-0 pointer-events-none"
         >
           Explore Now
           <ArrowRight />
@@ -529,7 +676,8 @@ const ProjectCard = ({ project }) => {
 
 const FeaturedProjects = () => {
   return (
-    <div className='p-1 w-screen overflow-hidden'>
+    // Added the "feature-section" class here
+    <div className=" p-1 w-screen overflow-hidden">
       <div className="w-full bg-white rounded-3xl font-serif px-4 md:px-6 lg:px-10 py-6 pb-16">
         <div className="flex items-center justify-between mb-4">
           <h2 className="mt-5 text-4xl font-light text-gray-900">Featured Projects</h2>
