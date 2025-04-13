@@ -35,7 +35,7 @@ const Cursor = () => {
   })
 
   return (
-    <div className="cursor bg-white h-6 w-6 rounded-full z-50 fixed filter pointer-events-none mix-blend-difference"></div>
+    <div className="cursor bg-white h-6 w-6 rounded-full z-40 fixed filter pointer-events-none mix-blend-difference"></div>
   )
 }
 

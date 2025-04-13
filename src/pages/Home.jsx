@@ -8,7 +8,6 @@ import Cursor from '../components/Cursor'
 const HomePage = () => {
   return (
     <div className='bg-black overflow-hidden'>
-      <Cursor/>
       <Home/>
       <FeaturedProjects/>
       <About/>

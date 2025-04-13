@@ -7,6 +7,7 @@ import { AnimatePresence } from 'framer-motion';
 import ProjectDetails from './components/ProjectDetails';
 import PageTransition from './components/PageTransition';
 import HomePage from './pages/Home';
+import Cursor from './components/Cursor';
 
 // This is the part that depends on router
 const AnimatedRoutes = () => {
@@ -49,6 +50,7 @@ const App = () => {
 
   return (
     <Router>
+       <Cursor/>
       <AnimatedRoutes />
     </Router>
   );

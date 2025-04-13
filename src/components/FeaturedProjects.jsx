@@ -553,7 +553,11 @@ import React, { useRef, useCallback } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
-
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/all';
+import { useScroll } from 'framer-motion';
+import { tr } from 'framer-motion/client';
+gsap.registerPlugin(ScrollTrigger);
 const projectData = [
   {
     id: 1,
@@ -634,7 +638,7 @@ const ProjectCard = ({ project }) => {
       overwrite: "auto",
     });
   }, []);
-
+  
   return (
     <div
       onClick={() => navigate(`projects/${project.id}`)}
@@ -645,7 +649,7 @@ const ProjectCard = ({ project }) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onMouseMove={handleMouseMove}
-        className="relative cursor-none border-2 p-0.5 sm:p-1.5 transition-all duration-500 rounded-2xl border-[#efeeee] overflow-hidden"
+        className="relative card cursor-none border-2 p-0.5 sm:p-1.5 transition-all duration-500 rounded-2xl border-[#efeeee] overflow-hidden"
       >
         {/* Floating Explore Effect */}
         <div
@@ -675,16 +679,67 @@ const ProjectCard = ({ project }) => {
 };
 
 const FeaturedProjects = () => {
+  useGSAP(() => {
+    gsap.fromTo('.text-ani',
+      { opacity: 0, y: 50 },
+      {
+        y: 0,
+        opacity: 1,
+      duration: 2,
+      // stagger: { amount: 0.5 },
+      ease: 'power2.inOut',
+      scrollTrigger: {
+        trigger: '.feature-con',
+        start: 'top 85%',
+        end: 'top 60%',
+        scrub: 1.5,
+        // markers:true,            // animates only once (optional, looks clean)
+
+      }
+    });
+    
+    gsap.utils.toArray('.card').forEach(card => {
+      gsap.fromTo(
+        card,
+        {
+          opacity: 0,
+          y: 30,        // slight upward motion
+          scale: 0.95,  // subtle zoom effect
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,             // not too fast, not too slow
+          ease: 'power2.inOut',        // smooth acceleration and soft landing
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            end: 'top 80%',
+            toggleActions: 'play none none reverse',
+            // markers:true,            // animates only once (optional, looks clean)
+          },
+        }
+      );
+    });
+  }, []);
+
   return (
     // Added the "feature-section" class here
-    <div className=" p-1 w-screen overflow-hidden">
+    <div className=" p-1 w-screen feature-con overflow-hidden">
       <div className="w-full bg-white rounded-3xl font-serif px-4 md:px-6 lg:px-10 py-6 pb-16">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="mt-5 text-4xl font-light text-gray-900">Featured Projects</h2>
+        <div className=" overflow-hidden p-1 flex items-center justify-between mb-4">
+          <h2 className="text-ani mt-5 text-4xl sm:text-5xl font-light text-gray-900">
+            {['F', 'e', 'a', 't', 'u', 'r', 'e', 'd', ' ', 'P', 'r', 'o', 'j', 'e', 'c', 't', 's'].map((letter, index) => (
+              <span key={index} className="inline-block">
+                {letter}
+              </span>
+            ))}
+          </h2>
         </div>
 
         {/* Grid layout for all screen sizes */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-1 xl:grid-cols-2 gap-7">
+        <div className="mt-12 cards grid grid-cols-1 md:grid-cols-1 xl:grid-cols-2 gap-7">
           {projectData.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
