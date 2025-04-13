@@ -680,24 +680,24 @@ const ProjectCard = ({ project }) => {
 
 const FeaturedProjects = () => {
   useGSAP(() => {
-    gsap.fromTo('.text-ani',
-      { opacity: 0, y: 50 },
+    gsap.fromTo(
+      '.text-ani', // animate each paragraph inside the container
+      { y: 50, opacity: 0 },
       {
         y: 0,
         opacity: 1,
-      duration: 2,
-      // stagger: { amount: 0.5 },
-      ease: 'power2.inOut',
-      scrub: 1,
-      scrollTrigger: {
-        trigger: '.feature-con',
-        start: 'top 85%',
-        end: 'top 60%',
-        scrub: 1.5,
-        // markers:true,            // animates only once (optional, looks clean)
-
+        duration: 1,
+        ease: 'power3.out',
+        stagger: { amount: 0.5 },
+        scrollTrigger: {
+          trigger: '.feature-con',
+          start: 'top 80%',
+          end: '60% 60%',
+          scrub: 1, // keep it responsive to scroll
+          // markers: true,
+        },
       }
-    });
+    );
     
     gsap.utils.toArray('.card').forEach(card => {
       gsap.fromTo(
@@ -731,11 +731,7 @@ const FeaturedProjects = () => {
       <div className="w-full bg-white rounded-3xl font-serif px-4 md:px-6 lg:px-10 py-6 pb-16">
         <div className=" overflow-hidden p-1 flex items-center justify-between mb-4">
           <h2 className="text-ani mt-5 text-4xl sm:text-5xl font-light text-gray-900">
-            {['F', 'e', 'a', 't', 'u', 'r', 'e', 'd', ' ', 'P', 'r', 'o', 'j', 'e', 'c', 't', 's'].map((letter, index) => (
-              <span key={index} className="inline-block">
-                {letter}
-              </span>
-            ))}
+            Featured Projects
           </h2>
         </div>
 
