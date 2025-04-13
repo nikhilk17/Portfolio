@@ -699,30 +699,30 @@ const FeaturedProjects = () => {
       }
     );
     
-    gsap.utils.toArray('.card').forEach(card => {
-      gsap.fromTo(
-        card,
-        {
-          opacity: 0,
-          y: 30,        // slight upward motion
-          scale: 0.95,  // subtle zoom effect
-        },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.5,             // not too fast, not too slow
-          ease: 'power2.inOut',        // smooth acceleration and soft landing
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 80%',
-            end: 'top 80%',
-            toggleActions: 'play none none reverse',
-            // markers:true,            // animates only once (optional, looks clean)
-          },
-        }
-      );
-    });
+  //   gsap.utils.toArray('.card').forEach(card => {
+  //     gsap.fromTo(
+  //       card,
+  //       {
+  //         opacity: 0,
+  //         y: 30,        // slight upward motion
+  // // subtle zoom effect
+  //       },
+  //       {
+  //         opacity: 1,
+  //         y: 0,
+  //         scale: 1,
+  //         duration: 1,             // not too fast, not too slow
+  //         ease: 'power2.inOut',        // smooth acceleration and soft landing
+  //         scrollTrigger: {
+  //           trigger: card,
+  //           start: 'top 80%',
+  //           end: 'top 80%',
+  //           toggleActions: 'play none none reverse',
+  //           // markers:true,            // animates only once (optional, looks clean)
+  //         },
+  //       }
+  //     );
+  //   });
   }, []);
 
   return (
