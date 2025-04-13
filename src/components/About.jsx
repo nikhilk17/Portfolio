@@ -102,7 +102,7 @@ gsap.fromTo('.stack-section',
         {/* Title section */}
         <div className="mb-6 flex flex-col overflow-hidden gap-3">
           
-          <h1 className="text-2xl text-ani translate-y-40 sm:text-3xl md:text-4xl font-serif text-gray-900 leading-tight">
+          <h1 className="text-2xl text-ani-2 translate-y-40 sm:text-3xl md:text-4xl font-serif text-gray-900 leading-tight">
             CODE. ANIMATE. ELEVATE.
           </h1>
           <h2 className="text-4xl text-ani-2 sm:text-4xl translate-y-40 md:text-5xl font-serif text-gray-400 leading-tight">
