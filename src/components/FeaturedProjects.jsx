@@ -688,6 +688,7 @@ const FeaturedProjects = () => {
       duration: 2,
       // stagger: { amount: 0.5 },
       ease: 'power2.inOut',
+      scrub: 1,
       scrollTrigger: {
         trigger: '.feature-con',
         start: 'top 85%',
